@@ -33,7 +33,7 @@ export const AsideButton = ({
       </div>
 
       {figure !== 0 && (
-        <p className={`text-[15px] ${isActive && "text-white"} `}>{figure}</p>
+        <p className={`text-[13px] ${isActive && "text-white"} `}>{figure}</p>
       )}
     </div>
   );

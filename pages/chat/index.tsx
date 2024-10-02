@@ -29,7 +29,7 @@ const ChatPage = () => {
         </div>
 
         {/* Chat footer */}
-        <div className="p-3">
+        <div className="px-3">
           <div className="flex items-end gap-2">
             <div className="bg-card p-3 rounded-lg justify-between flex items-end flex-1 gap-2">
               <IoCameraOutline size={24} className="opacity-60" />

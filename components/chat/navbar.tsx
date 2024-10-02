@@ -14,7 +14,7 @@ export const NavBar = ({ openNavBar }: Types) => {
           role="presentation"
           onClick={openNavBar}
           size={23}
-          className="flex md:hidden"
+          className="flex md:hidden outline-none"
         />
         <p className="font-medium">Chat</p>
       </div>

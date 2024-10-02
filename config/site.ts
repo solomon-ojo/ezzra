@@ -1,9 +1,9 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "Radius -  AI Bot",
-  description: " AI Bot",
-  shortName: "Radius",
+  name: "Ezzra - Church database and AI Bot",
+  description: "Church database and AI Bot",
+  shortName: "Ezzra",
   colors: {
     primary: "#6B68DF",
     cardLightColor: "#ffffff",

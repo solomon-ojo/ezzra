@@ -10,7 +10,7 @@ import { PiFramerLogoFill } from "react-icons/pi";
 import { siteConfig } from "@/config/site";
 import { VscEdit } from "react-icons/vsc";
 import { AiOutlineLike } from "react-icons/ai";
-import { GetChatGPTResponse } from "@/lib/helper";
+import { getChatGPTResponse, GetChatGPTResponse } from "@/lib/helper";
 import { Button } from "@nextui-org/button";
 
 const ChatPage = () => {
@@ -44,7 +44,7 @@ const ChatPage = () => {
 
       try {
         // Get response from AI
-        const aiResponse = await GetChatGPTResponse(newMessage.text);
+        const aiResponse: any = await getChatGPTResponse(newMessage.text);
         const aiMessage: MessageTypes = {
           id: messages.length + 2,
           text: aiResponse,

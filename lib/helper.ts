@@ -17,7 +17,6 @@ export const GetChatGPTResponse = async (userMessage: string) => {
       model: "gpt-4o-mini", // Use correcst model name
       messages: [{ role: "user", content: userMessage }],
       temperature: 0.7,
-      max_tokens: 100,
     }),
   });
 
@@ -44,10 +43,9 @@ export const getChatGPTResponse = async (userMessage: string) => {
           content: userMessage,
         },
       ],
-      max_tokens: 100,
     });
 
-    // Return the assistant's response
+    // Return the assistant's responseg
     return completion.choices[0].message.content;
   } catch (error) {
     console.error("Error fetching ChatGPT response:", error);

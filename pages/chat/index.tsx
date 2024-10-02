@@ -12,6 +12,7 @@ import { VscEdit } from "react-icons/vsc";
 import { AiOutlineLike } from "react-icons/ai";
 import { getChatGPTResponse, GetChatGPTResponse } from "@/lib/helper";
 import { Button } from "@nextui-org/button";
+import { BiDislike } from "react-icons/bi";
 
 const ChatPage = () => {
   const [message, setMessage] = useState(""); // Input message state
@@ -143,7 +144,7 @@ const ChatPage = () => {
                 ) : (
                   <div className="h-[28px] w-[50px] justify-between px-[5px] rounded-lg border border-bordercolor flex items-center gap-1">
                     <AiOutlineLike size={15} />
-                    <AiOutlineLike size={15} />
+                    <BiDislike size={15} />
                   </div>
                 )}
               </div>

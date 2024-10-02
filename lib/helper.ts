@@ -45,7 +45,7 @@ export const getChatGPTResponse = async (userMessage: string) => {
       ],
     });
 
-    // Return the assistant's response
+    // Return the assistant's responseg
     return completion.choices[0].message.content;
   } catch (error) {
     console.error("Error fetching ChatGPT response:", error);

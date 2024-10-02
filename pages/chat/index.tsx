@@ -24,12 +24,12 @@ const ChatPage = () => {
     <ChatLayout>
       <section className="w-full max-w-[580px] flex flex-col h-full">
         {/* Chats area */}
-        <div className="flex-1 overflow-auto scrollbar-hide p-2">
+        <div className="flex-1 overflow-auto scrollbar-hide">
           <p>Lor</p>
         </div>
 
         {/* Chat footer */}
-        <div className="px-3">
+        <div className="">
           <div className="flex items-end gap-2">
             <div className="bg-card p-3 rounded-lg justify-between flex items-end flex-1 gap-2">
               <IoCameraOutline size={24} className="opacity-60" />

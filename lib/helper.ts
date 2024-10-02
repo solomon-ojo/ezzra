@@ -44,6 +44,7 @@ export const getChatGPTResponse = async (userMessage: string) => {
           content: userMessage,
         },
       ],
+      max_tokens: 100,
     });
 
     // Return the assistant's response

@@ -1,11 +1,11 @@
 import OpenAI from "openai";
 const openai = new OpenAI({
-  apiKey: "scn",
+  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
   dangerouslyAllowBrowser: true,
 });
 
 export const GetChatGPTResponse = async (userMessage: string) => {
-  const apiKey = "scn";
+  const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: {

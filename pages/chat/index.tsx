@@ -3,46 +3,31 @@ import { IoCameraOutline, IoMicOutline } from "react-icons/io5";
 import { VscSend } from "react-icons/vsc";
 import { useState, useRef, useEffect } from "react";
 import { MessageTypes } from "@/lib/types";
-import { getCurrentTimestamp, timeAgo, timeAgoFunction } from "@/lib/functions";
-import { DummyMessages } from "@/lib/demo"; // Import the dummy messages
+import { getCurrentTimestamp } from "@/lib/functions";
 import { Spinner } from "@nextui-org/spinner";
 import { Avatar } from "@nextui-org/avatar";
-import { TbMenu } from "react-icons/tb";
 import { PiFramerLogoFill } from "react-icons/pi";
 import { siteConfig } from "@/config/site";
 import { VscEdit } from "react-icons/vsc";
 import { AiOutlineLike } from "react-icons/ai";
+import { GetChatGPTResponse } from "@/lib/helper";
+import { Button } from "@nextui-org/button";
 
 const ChatPage = () => {
-  // Manage the input message and the array of messages
-  const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState<MessageTypes[]>([]); // Initially empty, will populate later
-  const [isLoadingMessages, setIsLoadingMessages] = useState(true); // Renamed for clarity
+  const [message, setMessage] = useState(""); // Input message state
+  const [messages, setMessages] = useState<MessageTypes[]>([]); // Empty initial messages
+  const [isTyping, setIsTyping] = useState(false); // Typing indicator
 
-  // References to manage textarea auto-height and chat auto-scroll
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const chatAreaRef = useRef<HTMLDivElement>(null);
-
-  // Simulate fetching initial messages from a server (after a delay)
-  useEffect(() => {
-    // Simulate network delay with setTimeout
-    const fetchInitialMessages = async () => {
-      // Simulate fetching messages from an API
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate delay
-      setMessages(DummyMessages); // Populate with dummy data
-      setIsLoadingMessages(false); // Set loading to false after data is fetched
-    };
-
-    fetchInitialMessages();
-  }, []); // Empty dependency array ensures it runs only once
+  const textareaRef = useRef<HTMLTextAreaElement>(null); // Ref for auto-height adjustment
+  const chatAreaRef = useRef<HTMLDivElement>(null); // Ref for auto-scroll
 
   // Handle input changes for the message
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
   };
 
-  // Handle sending the message
-  const handleSendMessage = () => {
+  // Handle sending the message and fetching the AI response
+  const handleSendMessage = async () => {
     if (message.trim()) {
       const newMessage: MessageTypes = {
         id: messages.length + 1,
@@ -51,19 +36,37 @@ const ChatPage = () => {
         timestamp: getCurrentTimestamp(),
         timeago: "Just now",
       };
-
-      // Add the new message to the array and clear the input
       setMessages((prevMessages) => [...prevMessages, newMessage]);
       setMessage(""); // Clear the input
+
+      // Show typing indicator
+      setIsTyping(true);
+
+      try {
+        // Get response from AI
+        const aiResponse = await GetChatGPTResponse(newMessage.text);
+        const aiMessage: MessageTypes = {
+          id: messages.length + 2,
+          text: aiResponse,
+          sender: "bot",
+          timestamp: getCurrentTimestamp(),
+          timeago: "Just now",
+        };
+        setMessages((prevMessages) => [...prevMessages, aiMessage]);
+      } catch (error) {
+        console.error("Error fetching AI response:", error);
+      } finally {
+        setIsTyping(false); // Hide typing indicator
+      }
     }
   };
 
-  // Adjusts textarea height dynamically
+  // Adjust textarea height dynamically
   useEffect(() => {
     const textarea = textareaRef.current;
     if (textarea) {
       textarea.style.height = "auto";
-      textarea.style.height = `${Math.min(textarea.scrollHeight, 128)}px`;
+      textarea.style.height = `${Math.min(textarea.scrollHeight, 128)}px`; // Max height of 128px
     }
   }, [message]);
 
@@ -86,77 +89,74 @@ const ChatPage = () => {
           ref={chatAreaRef}
           className="flex-1 flex flex-col gap-0 overflow-auto scrollbar-hide"
         >
-          {/* Display the spinner while messages are loading */}
-          {isLoadingMessages && (
-            <div className="h-[50svh] flex items-center justify-center">
-              <Spinner color="default" size="sm" />
-            </div>
-          )}
-
-          {/* Display the messages once they are loaded */}
-          {!isLoadingMessages &&
-            messages.map((msg) => (
-              <div
-                key={msg.id}
-                className={`my-2 p-2 flex items-start justify-between rounded-lg ${
-                  msg.sender === "bot" ? "bg-card shadow-sm" : "bg-transparent"
-                }`}
-              >
-                {/* Left */}
-                <div className="flex items-start gap-3">
-                  <div>
-                    {msg.sender == "user" ? (
-                      <Avatar
-                        className="h-[35px] w-[35px] rounded-lg shrink-0"
-                        src="https://i.pravatar.cc/150?u=a04258a2462d826712d"
-                        size="sm"
-                      />
-                    ) : (
-                      <div className="h-[35px] w-[35px] border border-bordercolor bg-card flex items-center justify-center rounded-lg shrink-0">
-                        <PiFramerLogoFill
-                          size={20}
-                          color={siteConfig.colors.primary}
-                        />
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="flex flex-col gap-1">
-                    <div className="flex items-center gap-2">
-                      <h1 className="font-semibold text-[15px]">
-                        {msg.sender == "bot" ? "EzzraAI" : "You"}
-                      </h1>
-                      <span className=" inline-block w-[6px] h-[6px] bg-gray-500 rounded-full"></span>
-                      <p className="text-[13px] opacity-65">{msg.timeago}</p>
-                    </div>
-                    {/* Chat message */}
-                    <p className="text-[13px] break-words overflow-wrap-anywhere">
-                      {msg.text}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Right */}
+          {/* Display the messages */}
+          {messages.map((msg) => (
+            <div
+              key={msg.id}
+              className={`my-2 p-2 flex items-start justify-between rounded-lg ${
+                msg.sender === "bot" ? "bg-card shadow-sm" : "bg-transparent"
+              }`}
+            >
+              {/* Left */}
+              <div className="flex items-start gap-3">
                 <div>
                   {msg.sender == "user" ? (
-                    <div
-                      className="h-[28px] w-[28px] rounded-lg border border-bordercolor flex items-center justify-center
-                  "
-                    >
-                      <VscEdit size={13} />
-                    </div>
+                    <Avatar
+                      className="h-[35px] w-[35px] rounded-lg shrink-0"
+                      src="https://i.pravatar.cc/150?u=a04258a2462d826712d"
+                      size="sm"
+                    />
                   ) : (
-                    <div
-                      className="h-[28px] w-[50px] justify-between px-[5px] rounded-lg border border-bordercolor flex items-center gap-1
-                  "
-                    >
-                      <AiOutlineLike size={15} />
-                      <AiOutlineLike size={15} />
+                    <div className="h-[35px] w-[35px] border border-bordercolor bg-card flex items-center justify-center rounded-lg shrink-0">
+                      <PiFramerLogoFill
+                        size={20}
+                        color={siteConfig.colors.primary}
+                      />
                     </div>
                   )}
                 </div>
+
+                <div className="flex flex-col gap-1">
+                  <div className="flex items-center gap-2">
+                    <h1 className="font-semibold text-[15px]">
+                      {msg.sender == "bot" ? "EzzraAI" : "You"}
+                    </h1>
+                    <span className="inline-block w-[6px] h-[6px] bg-gray-500 rounded-full"></span>
+                    <p className="text-[13px] opacity-65">{msg.timeago}</p>
+                  </div>
+                  {/* Chat message */}
+                  <p className="text-[13px] break-words overflow-wrap-anywhere">
+                    {msg.text}
+                  </p>
+                </div>
               </div>
-            ))}
+
+              {/* Right */}
+              <div>
+                {msg.sender == "user" ? (
+                  <div
+                    className="h-[28px] w-[28px] rounded-lg border border-bordercolor flex items-center justify-center
+                  "
+                  >
+                    <VscEdit size={13} />
+                  </div>
+                ) : (
+                  <div className="h-[28px] w-[50px] justify-between px-[5px] rounded-lg border border-bordercolor flex items-center gap-1">
+                    <AiOutlineLike size={15} />
+                    <AiOutlineLike size={15} />
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+
+          {/* Display typing indicator */}
+          {isTyping && (
+            <div className="flex items-center justify-center gap-2 p-2 w-full">
+              <Spinner color="secondary" size="sm" />
+              <p className="text-sm text-gray-500">EzzraAI is typing...</p>
+            </div>
+          )}
         </div>
 
         {/* Chat footer */}

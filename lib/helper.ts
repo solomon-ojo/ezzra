@@ -7,7 +7,7 @@ export const GetChatGPTResponse = async (userMessage: string) => {
       Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model: "gpt-4o-mini", // Use correct model name
+      model: "gpt-4o-mini", // Use correcst model name
       messages: [{ role: "user", content: userMessage }],
       temperature: 0.7,
       max_tokens: 100,

@@ -92,7 +92,7 @@ export const SideNav = () => {
           className="h-[45px] flex items-center px-4 gap-2 border-b border-bordercolor"
         >
           <PiFramerLogoFill size={20} color={siteConfig.colors.primary} />
-          <p className="font-extrabold text-[18px]">Ezzra</p>
+          <p className="font-extrabold text-[18px]">{siteConfig.shortName}</p>
         </Link>
 
         {/* Links */}

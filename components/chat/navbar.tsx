@@ -1,14 +1,26 @@
 import { ThemeSwitch } from "../theme-switch";
 import { CgMenuRight } from "react-icons/cg";
 import { TbMenu } from "react-icons/tb";
-export const NavBar = () => {
+
+type Types = {
+  openNavBar: () => void;
+};
+
+export const NavBar = ({ openNavBar }: Types) => {
   return (
     <div className="flex h-[45px] bg-card shadow-sm items-center px-3 border-bordercolor justify-between">
       <div className="flex gap-3 items-center">
-        <TbMenu size={23} className="flex md:hidden" />
+        <TbMenu
+          role="presentation"
+          onClick={openNavBar}
+          size={23}
+          className="flex md:hidden"
+        />
         <p className="font-medium">Chat</p>
       </div>
-      <ThemeSwitch />
+      <div className="h-[32px] w-[32px] border border-bordercolor shrink-0 flex items-center justify-center rounded-full bg-background">
+        <ThemeSwitch />
+      </div>
     </div>
   );
 };

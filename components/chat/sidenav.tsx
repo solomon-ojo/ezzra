@@ -84,7 +84,7 @@ export const SideNav = () => {
   const [activeHistory, setActiveHistory] = useState(2);
 
   return (
-    <aside className="w-64 bg-card h-full relative scrollbar-hide overflow-scroll border-r border-bordercolor">
+    <aside className="w-full md:w-64 bg-card h-full relative scrollbar-hide overflow-scroll border-r border-bordercolor">
       {/* Header */}
       <div>
         <Link

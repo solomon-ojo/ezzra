@@ -11,7 +11,7 @@ export default function IndexPage() {
           {siteConfig.shortName}AI - Church Database and AI Bot.
         </h1>
         <Link href={siteConfig.sitePaths.register} className="w-full">
-          <button className="h-[50px] rounded-lg font-semibold bg-[#0F0529] w-full">
+          <button className="h-[50px] text-white rounded-lg font-semibold bg-[#0F0529] w-full">
             Get Started
           </button>
         </Link>

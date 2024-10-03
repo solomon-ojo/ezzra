@@ -30,7 +30,7 @@ const RegisterPage = () => {
             name=""
             id=""
           />
-          <button className="h-[50px] rounded-lg mt-5 font-semibold bg-[#0F0529] w-full">
+          <button className="h-[50px] text-white rounded-lg mt-5 font-semibold bg-[#0F0529] w-full">
             Get Started
           </button>
         </form>

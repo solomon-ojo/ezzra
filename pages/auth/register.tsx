@@ -1,4 +1,6 @@
+import { siteConfig } from "@/config/site";
 import AuthLayout from "@/layouts/auth";
+import Link from "next/link";
 
 const RegisterPage = () => {
   return (
@@ -36,9 +38,12 @@ const RegisterPage = () => {
         </form>
         <p className="text-gray-600 text-sm">
           Already have an account?{" "}
-          <span className="font-semibold text-[#0F0529] underline underline-offset-4">
+          <Link
+            href={siteConfig.sitePaths.signin}
+            className="font-semibold text-[#0F0529] underline underline-offset-4"
+          >
             Login
-          </span>
+          </Link>
         </p>
       </div>
     </AuthLayout>

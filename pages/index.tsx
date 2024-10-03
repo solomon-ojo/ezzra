@@ -5,12 +5,8 @@ import Link from "next/link";
 export default function IndexPage() {
   return (
     <DefaultLayout>
-      <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-        <div className="inline-block max-w-xl text-center justify-center">
-          <Link href={"/chat"} className="underline underline-offset-4">
-            <h1 className={title()}>Chats with Our AI</h1>
-          </Link>
-        </div>
+      <section className="bg-primary flex items-center justify-center w-full h-full">
+        <p>skcnk</p>
       </section>
     </DefaultLayout>
   );

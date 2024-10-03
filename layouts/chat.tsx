@@ -12,7 +12,7 @@ export default function ChatLayout({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="relative flex h-[100svh]">
+    <div className="relative flex h-svh">
       <Head />
       {/* SideNav: Hidden on smaller screens, visible on medium and larger screens */}
       <aside

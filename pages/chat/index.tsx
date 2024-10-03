@@ -11,7 +11,6 @@ import { siteConfig } from "@/config/site";
 import { VscEdit } from "react-icons/vsc";
 import { AiOutlineLike } from "react-icons/ai";
 import { getChatGPTResponse, GetChatGPTResponse } from "@/lib/helper";
-import { Button } from "@nextui-org/button";
 import { BiDislike } from "react-icons/bi";
 
 const ChatPage = () => {

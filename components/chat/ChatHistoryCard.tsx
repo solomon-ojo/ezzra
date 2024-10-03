@@ -26,8 +26,8 @@ export const ChatHistoryCard = ({
           <IoChatboxOutline size={14} />
         </div>
         <div>
-          <h1 className="text-[13px] font-medium">{title}</h1>
-          <p className="text-[12px] opacity-70">{description}</p>
+          <h1 className="text-[14px] md:text-[13px] font-medium">{title}</h1>
+          <p className="text-[13px] md:text-[12px] opacity-70">{description}</p>
         </div>
       </div>
       <div>

@@ -13,5 +13,7 @@ export const siteConfig = {
   },
   sitePaths: {
     chatHome: "/chat",
+    register: "/auth/register",
+    signin: "/auth/signin",
   },
 };

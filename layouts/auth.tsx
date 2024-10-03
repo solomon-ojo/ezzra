@@ -2,7 +2,7 @@ import { Head } from "./head";
 
 import { Navbar } from "@/components/navbar";
 
-export default function DefaultLayout({
+export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;

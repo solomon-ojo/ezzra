@@ -76,7 +76,7 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
           ),
         })}
       >
-        {isSelected ? <MdLightMode size={20} /> : <MdLightMode size={20} />}
+        {isSelected ? <MdLightMode size={18} /> : <MdLightMode size={18} />}
       </div>
     </Component>
   );

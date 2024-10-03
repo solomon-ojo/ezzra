@@ -26,7 +26,7 @@ export const AsideButton = ({
           {icon}
         </div>
         <p
-          className={`text-[13px] font-medium ${isActive && "text-white"} ${title == "Search" && !isActive && "opacity-65"} `}
+          className={`text-[15px] md:text-[13px] font-medium ${isActive && "text-white"} ${title == "Search" && !isActive && "opacity-65"} `}
         >
           {title}
         </p>

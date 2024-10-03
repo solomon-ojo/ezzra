@@ -11,7 +11,6 @@ import { siteConfig } from "@/config/site";
 import { VscEdit } from "react-icons/vsc";
 import { AiOutlineLike } from "react-icons/ai";
 import { getChatGPTResponse, GetChatGPTResponse } from "@/lib/helper";
-import { Button } from "@nextui-org/button";
 import { BiDislike } from "react-icons/bi";
 
 const ChatPage = () => {
@@ -120,7 +119,9 @@ const ChatPage = () => {
                 <div className="flex flex-col gap-1">
                   <div className="flex items-center gap-2">
                     <h1 className="font-semibold text-[15px]">
-                      {msg.sender == "bot" ? "EzzraAI" : "You"}
+                      {msg.sender == "bot"
+                        ? `${siteConfig.shortName}AI`
+                        : "You"}
                     </h1>
                     <span className="inline-block w-[6px] h-[6px] bg-gray-500 rounded-full"></span>
                     <p className="text-[13px] opacity-65">{msg.timeago}</p>
@@ -155,7 +156,9 @@ const ChatPage = () => {
           {isTyping && (
             <div className="flex items-center justify-center gap-2 p-2 w-full">
               <Spinner color="secondary" size="sm" />
-              <p className="text-sm text-gray-500">EzzraAI is typing...</p>
+              <p className="text-sm text-gray-500">
+                {siteConfig.shortName}AI is typing...
+              </p>
             </div>
           )}
         </div>
@@ -184,7 +187,7 @@ const ChatPage = () => {
             </button>
           </div>
           <p className="text-[11px] opacity-70 p-2 text-center">
-            EzzraAI can make mistakes. Learn more.
+            {siteConfig.shortName}AI can make mistakes. Learn more.
           </p>
         </div>
       </section>

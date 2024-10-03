@@ -4,11 +4,9 @@ import { AsideButton } from "./AsideButton";
 import {
   IoAddOutline,
   IoArchiveOutline,
-  IoChatboxOutline,
   IoFolderOutline,
   IoHeartOutline,
   IoHelpCircleOutline,
-  IoHelpOutline,
   IoSearchOutline,
 } from "react-icons/io5";
 import { title } from "process";
@@ -89,10 +87,10 @@ export const SideNav = () => {
       <div>
         <Link
           href={siteConfig.sitePaths.chatHome}
-          className="h-[45px] flex items-center px-4 gap-2 border-b border-bordercolor"
+          className="h-[50px] md:h-[45px] flex items-center px-4 gap-2 border-b border-bordercolor"
         >
           <PiFramerLogoFill size={20} color={siteConfig.colors.primary} />
-          <p className="font-extrabold text-[18px]">Ezzra</p>
+          <p className="font-extrabold text-[18px]">{siteConfig.shortName}</p>
         </Link>
 
         {/* Links */}

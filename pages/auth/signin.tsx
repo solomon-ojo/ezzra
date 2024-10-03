@@ -30,7 +30,7 @@ const SigninPage = () => {
           </button>
         </form>
         <p className="text-gray-600 text-sm">
-          Don't have an account?{" "}
+          Don&lsquo;t have an account?{" "}
           <Link
             href={siteConfig.sitePaths.register}
             className="font-semibold text-[#0F0529] underline underline-offset-4"

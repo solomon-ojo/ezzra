@@ -1,3 +1,5 @@
+// pages/api/auth/[...nextauth].js
+
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaClient } from "@prisma/client";
@@ -19,32 +21,30 @@ export default NextAuth({
         });
 
         if (user && bcrypt.compareSync(credentials.password, user.password)) {
-          // Return user object if credentials are valid
           return { id: user.id, fullname: user.fullname, email: user.email };
         }
-        // Return null if authentication fails
         return null;
       },
     }),
   ],
   session: {
-    strategy: "jwt", // Use JWT for sessions
+    strategy: "jwt",
   },
   callbacks: {
+    async session({ session, token }) {
+      session.user.id = token.id;
+      session.user.fullname = token.fullname; // Ensure fullname is included
+      return session;
+    },
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.fullname = user.fullname; // Save fullname in token
+        token.fullname = user.fullname; // Include fullname in the token
       }
       return token;
     },
-    async session({ session, token }) {
-      session.user.id = token.id; // Add user id to session
-      session.user.fullname = token.fullname; // Add fullname to session
-      return session;
-    },
   },
   pages: {
-    signIn: "/signin", // Redirect users to this route for login
+    signIn: "/signin",
   },
 });

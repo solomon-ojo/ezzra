@@ -7,6 +7,8 @@ import {
   IoFolderOutline,
   IoHeartOutline,
   IoHelpCircleOutline,
+  IoLogOut,
+  IoLogOutOutline,
   IoSearchOutline,
 } from "react-icons/io5";
 import { title } from "process";
@@ -16,6 +18,7 @@ import { ChatHistoryCard } from "./ChatHistoryCard";
 import { RxCaretDown } from "react-icons/rx";
 import { ProfileDetailComp } from "../profileDetails";
 import { IoSettingsOutline } from "react-icons/io5";
+import { signOut } from "next-auth/react";
 
 const AsideButtonObj = [
   {
@@ -81,6 +84,10 @@ export const SideNav = () => {
   const [active, setActive] = useState(0);
   const [activeHistory, setActiveHistory] = useState(2);
 
+  const handleLogout = async () => {
+    await signOut({ redirect: true, callbackUrl: siteConfig.sitePaths.signin });
+  };
+
   return (
     <aside className="w-full md:w-64 bg-card h-full relative scrollbar-hide overflow-scroll border-r border-bordercolor">
       {/* Header */}
@@ -139,6 +146,14 @@ export const SideNav = () => {
           <div className="px-2 cursor-pointer flex items-center gap-2">
             <IoHelpCircleOutline />
             <p className="text-[14px]">Help</p>
+          </div>
+          <div
+            role="presentation"
+            onClick={handleLogout}
+            className="px-2 cursor-pointer flex items-center gap-2"
+          >
+            <IoLogOutOutline />
+            <p className="text-[14px]">Logout</p>
           </div>
         </div>
         <div className="p-3 border-t border-bordercolor">

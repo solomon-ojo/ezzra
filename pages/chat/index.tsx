@@ -10,10 +10,11 @@ import { PiFramerLogoFill } from "react-icons/pi";
 import { siteConfig } from "@/config/site";
 import { VscEdit } from "react-icons/vsc";
 import { AiOutlineLike } from "react-icons/ai";
-import { getChatGPTResponse, GetChatGPTResponse } from "@/lib/helper";
+import { getChatGPTResponse } from "@/lib/helper";
 import { BiDislike } from "react-icons/bi";
 
 const ChatPage = () => {
+  // State
   const [message, setMessage] = useState(""); // Input message state
   const [messages, setMessages] = useState<MessageTypes[]>([]); // Empty initial messages
   const [isTyping, setIsTyping] = useState(false); // Typing indicator

@@ -1,6 +1,10 @@
 import { Avatar } from "@nextui-org/avatar";
+import { useSession } from "next-auth/react";
 
 export const ProfileDetailComp = () => {
+  // Hook
+  const { data: session } = useSession();
+
   return (
     <div className="flex items-center gap-2">
       <Avatar
@@ -9,7 +13,7 @@ export const ProfileDetailComp = () => {
         size="md"
       />
       <div className="flex flex-col leading-4">
-        <p className="font-medium text-[13px]">Olumide John</p>
+        <p className="font-medium text-[13px]">{session?.user?.fullname}</p>
         <p className="text-[12px] opacity-70">Pro trial</p>
       </div>
     </div>
